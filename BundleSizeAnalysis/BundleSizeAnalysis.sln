@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.489
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BundleSizeAnalysis", "BundleSizeAnalysis\BundleSizeAnalysis.csproj", "{84BFE66D-9A3D-442B-BA60-B349353C7E78}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{84BFE66D-9A3D-442B-BA60-B349353C7E78}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{84BFE66D-9A3D-442B-BA60-B349353C7E78}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{84BFE66D-9A3D-442B-BA60-B349353C7E78}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{84BFE66D-9A3D-442B-BA60-B349353C7E78}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DAF84FB9-6E76-45C6-B53B-F3E2CED352FC}
+	EndGlobalSection
+EndGlobal
