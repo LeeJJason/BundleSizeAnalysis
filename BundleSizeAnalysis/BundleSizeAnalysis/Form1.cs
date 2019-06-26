@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -17,6 +17,7 @@ namespace BundleSizeAnalysis
         BEGIN,
         BUNDLE,
         END,
+        FINISH,
     }
 
     public partial class Form1 : Form
@@ -161,11 +162,22 @@ namespace BundleSizeAnalysis
                                 }
                                 break;
                             case ReadState.END:
-                                readState = ReadState.NONE;
+                                if (line.Contains("***********Build AssetsBundle Complete!"))
+                                    readState = ReadState.FINISH;
+                                else
+                                    readState = ReadState.NONE;
+                                break;
+                            case ReadState.FINISH:
+                                if (line.Contains("Bundle Name:"))
+                                {
+                                    readState = ReadState.BEGIN;
+                                    name = line.Substring(line.IndexOf(':') + 2);
+                                    bundles.Clear();
+                                }
                                 break;
                         }
                     }
-
+                    valueType = ValueType.SIZE;
                     bundles.Sort(Sort);
                     count.Text = "Bundles : " + bundles.Count;
                     ShowList();
@@ -293,7 +305,7 @@ namespace BundleSizeAnalysis
         private void BundleList_ColumnClick(object sender, ColumnClickEventArgs e)
         {
             ValueType type = (ValueType)e.Column;
-            if (type != valueType)
+            if (type != valueType && type != ValueType.NONE)
             {
                 valueType = (ValueType)e.Column;
                 bundles.Sort(Sort);
