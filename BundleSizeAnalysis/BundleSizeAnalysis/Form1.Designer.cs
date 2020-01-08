@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 namespace BundleSizeAnalysis
 {
@@ -39,11 +39,12 @@ namespace BundleSizeAnalysis
             this.count = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.AssetsList = new System.Windows.Forms.ListView();
+            this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btn_select_file
             // 
-            this.btn_select_file.Location = new System.Drawing.Point(12, 12);
+            this.btn_select_file.Location = new System.Drawing.Point(114, 12);
             this.btn_select_file.Name = "btn_select_file";
             this.btn_select_file.Size = new System.Drawing.Size(75, 23);
             this.btn_select_file.TabIndex = 0;
@@ -58,7 +59,7 @@ namespace BundleSizeAnalysis
             // select_file
             // 
             this.select_file.AutoSize = true;
-            this.select_file.Location = new System.Drawing.Point(109, 17);
+            this.select_file.Location = new System.Drawing.Point(211, 17);
             this.select_file.Name = "select_file";
             this.select_file.Size = new System.Drawing.Size(89, 12);
             this.select_file.TabIndex = 1;
@@ -67,6 +68,7 @@ namespace BundleSizeAnalysis
             // BundleList
             // 
             this.BundleList.ContextMenuStrip = this.menu;
+            this.BundleList.HideSelection = false;
             this.BundleList.Location = new System.Drawing.Point(13, 41);
             this.BundleList.Name = "BundleList";
             this.BundleList.Size = new System.Drawing.Size(775, 397);
@@ -102,17 +104,29 @@ namespace BundleSizeAnalysis
             // 
             // AssetsList
             // 
+            this.AssetsList.HideSelection = false;
             this.AssetsList.Location = new System.Drawing.Point(12, 461);
             this.AssetsList.Name = "AssetsList";
             this.AssetsList.Size = new System.Drawing.Size(776, 140);
             this.AssetsList.TabIndex = 7;
             this.AssetsList.UseCompatibleStateImageBehavior = false;
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(15, 12);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 8;
+            this.button1.Text = "重载文件";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 609);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.AssetsList);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.count);
@@ -138,6 +152,7 @@ namespace BundleSizeAnalysis
         private System.Windows.Forms.ContextMenuStrip menu;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ListView AssetsList;
+        private System.Windows.Forms.Button button1;
     }
 }
 

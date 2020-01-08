@@ -31,8 +31,7 @@ namespace BundleSizeAnalysis
             InitializeComponent();
             InitListView(BundleList);
             InitAssetListView();
-            string file = string.Format(@"C:\Users\{0}\AppData\Local\Unity\Editor\Editor.log", Environment.UserName);
-            ParseFile(file);
+            LoadEditor();
         }
 
         private void btn_select_file_Click(object sender, EventArgs e)
@@ -51,6 +50,20 @@ namespace BundleSizeAnalysis
             else
             {
                 select_file.Text = "请选择解析文件";
+            }
+        }
+
+        private void LoadEditor()
+        {
+            string file = string.Format(@"C:\Users\{0}\AppData\Local\Unity\Editor\Editor.log", Environment.UserName);
+
+            if (File.Exists(file))
+            {
+                if (!Directory.Exists("Editor"))
+                    Directory.CreateDirectory("Editor");
+                string target = string.Format("Editor/{0}.log", DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss"));
+                File.Copy(file, target);
+                ParseFile(target);
             }
         }
 
@@ -162,10 +175,14 @@ namespace BundleSizeAnalysis
                                 }
                                 break;
                             case ReadState.END:
-                                if (line.Contains("***********Build AssetsBundle Complete!"))
-                                    readState = ReadState.FINISH;
-                                else
+                                if (line.Contains("------------"))
+                                {
                                     readState = ReadState.NONE;
+                                }
+                                else
+                                {
+                                    readState = ReadState.FINISH;
+                                }
                                 break;
                             case ReadState.FINISH:
                                 if (line.Contains("Bundle Name:"))
@@ -222,54 +239,18 @@ namespace BundleSizeAnalysis
             }
         }
 
+        private static ColumnHeader[] columnHeaders = { new ColumnHeader { Width = 190, Text = "名字" }, new ColumnHeader { Width = 70, Text = "Size" } , new ColumnHeader { Width = 70, Text = "Texture" },
+                                                        new ColumnHeader { Width = 70, Text = "mesh" }, new ColumnHeader { Width = 70, Text = "Animation" } , new ColumnHeader { Width = 70, Text = "Sound" },
+                                                        new ColumnHeader { Width = 70, Text = "Shader" }, new ColumnHeader { Width = 70, Text = "Level" } , new ColumnHeader { Width = 70, Text = "Other" }};
+
         private void InitListView(ListView lv)
         {
             //添加列名
-            ColumnHeader name = new ColumnHeader();
-            name.Width = 190;
-            name.Text = "名字";
-            lv.Columns.Add(name);
-
-            ColumnHeader size = new ColumnHeader();
-            size.Width = 70;
-            size.Text = "Size";
-            lv.Columns.Add(size);
-
-            ColumnHeader texture = new ColumnHeader();
-            texture.Width = 70;
-            texture.Text = "Texture";
-            lv.Columns.Add(texture);
-
-            ColumnHeader meshes = new ColumnHeader();
-            meshes.Width = 70;
-            meshes.Text = "mesh";
-            lv.Columns.Add(meshes);
-
-            ColumnHeader aniamtions = new ColumnHeader();
-            aniamtions.Width = 70;
-            aniamtions.Text = "Animation";
-            lv.Columns.Add(aniamtions);
-
-            ColumnHeader sounds = new ColumnHeader();
-            sounds.Width = 70;
-            sounds.Text = "Sound";
-            lv.Columns.Add(sounds);
-
-            ColumnHeader Shaders = new ColumnHeader();
-            Shaders.Width = 70;
-            Shaders.Text = "Shader";
-            lv.Columns.Add(Shaders);
-
-            ColumnHeader levels = new ColumnHeader();
-            levels.Width = 70;
-            levels.Text = "Level";
-            lv.Columns.Add(levels);
-
-            ColumnHeader other = new ColumnHeader();
-            other.Width = 70;
-            other.Text = "Other";
-            lv.Columns.Add(other);
-
+            for (int i = 0; i < columnHeaders.Length; ++i)
+            {
+                lv.Columns.Add(columnHeaders[i]);
+            }
+           
             //设置属性
             lv.GridLines = true;  //显示网格线
             lv.FullRowSelect = true;  //显示全行
@@ -341,6 +322,11 @@ namespace BundleSizeAnalysis
                     AssetsList.Items.Add(li);
                 }
             }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            LoadEditor();
         }
     }
 }
